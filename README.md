@@ -1,0 +1,1 @@
+bikin venv ajah trus install package
