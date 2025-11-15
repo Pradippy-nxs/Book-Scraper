@@ -116,6 +116,7 @@ class QuotesSpider(scrapy.Spider):
         # Parse data 
         genre = response.css("div ul.breadcrumb li.active::text").get()
         for book in response.css("article.product_pod"):
+            book_detail_link = book.css("div.image_container a::attr(href)").get()
             yield {
                 "Title": book.css("h3 a::attr(title)").get(),
                 "Rating": rating_filter(book.css("p.star-rating::attr(class)").get()),
@@ -123,3 +124,13 @@ class QuotesSpider(scrapy.Spider):
                 "Price": book.css("p.price_color::text").get(),
                 "Status": status_filter(book.css("p.instock::attr(class)").get()),
             }
+
+            # This is for following the detail link 
+            if book_detail_link:
+                yield scrapy.Request(book_detail_link, callback=self)
+
+            # The rest of the logic to get UPC and or adding detailed and quantified in stock status 
+            # xxxx 
+            
+
+        
