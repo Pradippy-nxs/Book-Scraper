@@ -1,3 +1,9 @@
+How to scrape:
+scrapy crawl books
+
+How to scrape and store:
+scrapy crawl books -O books.json
+
 File structure:
 ```
 Book_Scraper/
