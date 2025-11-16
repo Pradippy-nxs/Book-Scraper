@@ -70,10 +70,10 @@ class BooksScraper(scrapy.Spider):
         item['price_currency'] = 'GBP'
 
         # Availability
-        availability_texts = response.css('p.availability::text').getall()
-        if availability_texts:
-            availability = ' '.join([text.strip() for text in availability_texts if text.strip()])
-            item['availability'] = availability
+        availability_text = response.css('p.availability::text').getall()
+        if availability_text:
+            cleaned_texts = [text.strip() for text in availability_text if text.strip()]
+            item['availability'] = cleaned_texts[0] if cleaned_texts else 'Unknown'
         else:
             item['availability'] = 'Unknown'
 
