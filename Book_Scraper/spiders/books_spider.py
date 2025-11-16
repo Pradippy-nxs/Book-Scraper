@@ -129,8 +129,8 @@ class BooksScraper(scrapy.Spider):
         # Category filter
         if self.category_filter:
             category = item.get('category', '')
-            if not category or self.category_filter.lower() not in category.lower():
-                return False
+        if not category or category.lower() != self.category_filter.lower():
+            return False
         
         # Price filter
         if self.min_price is not None or self.max_price is not None:
